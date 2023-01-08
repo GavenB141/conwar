@@ -390,7 +390,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "conway"
+name = "conwar"
 version = "1.0.0"
 dependencies = [
  "ggez",
