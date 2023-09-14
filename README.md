@@ -1,5 +1,3 @@
 # conwar
 
-Conway's Game of Life but there are two factions and they fight when they get close
-
-I made this for fun :)
+A modified cellular automata that features two 'factions' of cells with different behavior when they collide
