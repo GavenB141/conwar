@@ -2,7 +2,6 @@ use ggez::*;
 use ggez::input::keyboard::{KeyCode, KeyInput};
 use ggez::input::mouse::MouseButton;
 use ggez::glam::Vec2;
-//use rand::Rng;
 
 fn main() {
     let state = State {
@@ -27,7 +26,7 @@ fn main() {
     let c = conf::Conf::new();
     let (ctx, event_loop) = ContextBuilder::new("GoW", "Gaven Behrends")
         .default_conf(c)
-        .window_setup(conf::WindowSetup::default().title("Gaven's Game of War"))
+        .window_setup(conf::WindowSetup::default().title("Game of War"))
         .build()
         .unwrap();
 
@@ -79,7 +78,7 @@ impl State {
                 if allies == 2 || allies == 3 {
                     new.push(*cell);
                 }
-            }else if allies >= enemies {
+            }else if allies > enemies + 1 {
                 new.push(*cell);
             }
         }
@@ -222,16 +221,22 @@ impl ggez::event::EventHandler<GameError> for State {
             h_align: ggez::graphics::TextAlign::Begin,
             v_align: ggez::graphics::TextAlign::Begin,
         }).set_scale(22.0);
-        canvas.draw(&text, graphics::DrawParam::from([605.0, 260.0]).color((0,0,255)));
+        canvas.draw(&text, graphics::DrawParam::from([605.0, 260.0]).color((0,128,255)));
 
         if self.x != 0 || self.y != 0 {self.moved = true;}
         let mut text:graphics::Text = graphics::Text::new("");
-        if !self.moved {text.add("WASD to move camera\n\n");}
-        if self.active {text.add("Press E to Pause");}
-        else {text.add("Press Q to Toggle\n\n"); text.add("Press E to Resume");}
+        if !self.moved {
+            text.add("WASD to move camera\n\n");
+        }
+        if self.active {
+            text.add("Press E to Pause\n\n");
+        } else {
+            text.add("Press Q to Toggle\n\n"); text.add("Press E to Resume\n\n");
+        }
+        text.add("Press C to Clear");
 
 
-        text.set_bounds(Vec2::new(190.0, 60.0)).set_layout(ggez::graphics::TextLayout {
+        text.set_bounds(Vec2::new(190.0, 120.0)).set_layout(ggez::graphics::TextLayout {
             h_align: ggez::graphics::TextAlign::Middle,
             v_align: ggez::graphics::TextAlign::End,
         }).set_scale(18.0);
